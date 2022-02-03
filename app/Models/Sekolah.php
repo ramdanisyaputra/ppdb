@@ -15,4 +15,14 @@ class Sekolah extends Model
     {
         return $this->hasMany(Panitia::class);
     }
+
+    public function tes()
+    {
+        return $this->hasMany(Tes::class);
+    }
+
+    public function nilaiTes()
+    {
+        return $this->hasMany(NilaiTes::class);
+    }
 }

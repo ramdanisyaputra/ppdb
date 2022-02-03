@@ -19,7 +19,7 @@ class CreateTesTable extends Migration
             $table->string('judul');
             $table->integer('durasi');
             $table->enum('status',[0,1]);
-            $table->foreignId('panitia_id')->references('id')->on('panitia')->onDelete('cascade');
+            $table->foreignId('panitia_id')->nullable()->references('id')->on('panitia')->onDelete('cascade');
             $table->enum('status_acak',[0,1]);
             $table->timestamps();
         });

@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ujian extends Model
+class SoalTes extends Model
 {
     use HasFactory;
-    protected $table = 'ujian';
+    protected $table = 'soal_tes';
     protected $guarded = [];
 
-    public function panitia()
+    public function tes()
     {
-        return $this->hasMany(Panitia::class);
+        return $this->belongsTo(Tes::class);
     }
 }

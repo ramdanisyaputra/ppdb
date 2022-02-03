@@ -78,16 +78,16 @@
                         <p>Data Pendaftar</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="../widgets.html">
+                <li class="nav-item {{ request()->is('tes*') ? 'active' : '' }}">
+                    <a href="{{route('tes.index')}}">
                         <i class="fas fa-book"></i>
-                        <p>Ujian</p>
+                        <p>Tes</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="../widgets.html">
                         <i class="fas fa-graduation-cap"></i>
-                        <p>Nilai Ujian</p>
+                        <p>Nilai Tes</p>
                     </a>
                 </li>
                 <li class="nav-item">
