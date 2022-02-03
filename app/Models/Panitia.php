@@ -11,4 +11,9 @@ class Panitia extends Authenticatable
     use HasFactory, Notifiable;
     protected $table = 'panitia';
     protected $guarded = [];
+
+    public function sekolah()
+    {
+        return $this->belongsTo(Sekolah::class);
+    }
 }

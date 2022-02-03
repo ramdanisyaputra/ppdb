@@ -47,7 +47,7 @@
                     <strong>{{ $message }}</strong>
                 @enderror
                 <div class="form-group">
-                  <select name="role" id="role" class="form-control form-control-lg" style="padding-bottom:10px;padding-left:33px" required>
+                  <select name="role" id="role" class="form-control form-control-lg text-dark" style="padding-bottom:10px;padding-left:33px" required>
                     <option value="" disabled selected>Login Sebagai</option>
                     <option value="admin">Admin</option>
                     <option value="panitia">Panitia</option>
