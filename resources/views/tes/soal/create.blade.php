@@ -31,6 +31,9 @@
                 </h4>
             </div>
             <div class="card-body">
+                @if( Session::get('error') !="")
+                    <div class='alert alert-danger'><center><b>{{Session::get('error')}}</b></center></div>        
+                @endif
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <form action="{{ route('tes.soal.store', $tes->id) }}" method="POST">

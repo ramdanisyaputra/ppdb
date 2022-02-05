@@ -31,7 +31,10 @@
                 </h4>
             </div>
             <div class="card-body">
-            <div class="row justify-content-center">
+                @if( Session::get('error') !="")
+                    <div class='alert alert-danger'><center><b>{{Session::get('error')}}</b></center></div>        
+                @endif
+                <div class="row justify-content-center">
                     <div class="col-md-8">
                         <form action="{{ route('tes.soal.update', [$tes->id, $soal->id]) }}" method="POST">
                             @csrf

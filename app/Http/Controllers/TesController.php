@@ -193,24 +193,25 @@ class TesController extends Controller
         return redirect()->route('tes.soal.index', $tes->id)->with('success', 'Berhasil mengubah soal tes!');
     }
 
-    public function destroySoal($tes, SoalTes $soal)
+    public function deleteSoal($tes, $soal)
     {
-       $tes;
+       $soal = SoalTes::find($soal);
        $scores = NilaiTes::where('tes_id', $tes)->count();
        if($scores > 0){
-           return redirect()->back()->with('alert','Soal tidak dapat di hapus, karena telah terdapat nilai siswa yang sudah mengerjakan.');
+           return redirect()->back()->with('error','Soal tidak dapat di hapus, karena telah terdapat nilai siswa yang sudah mengerjakan.');
        }
        $soal->delete();
        return redirect()->back()->with('success', 'Berhasil menghapus soal tes!');
     }
 
-    public function destroyAll(Tes $tes)
+    public function deleteAll($tes)
     {
-       $nilaiTes = NilaiTes::where('tes_id', $tes->id)->count();
-       if($nilaiTes > 0){
-           return redirect()->back()->with('alert','Soal tidak dapat di hapus, karena telah terdapat nilai siswa yang sudah mengerjakan.');
-       }
-       $tes->soalTes()->delete();
+        $tes = Tes::find($tes);
+        $nilaiTes = NilaiTes::where('tes_id', $tes->id)->count();
+        if($nilaiTes > 0){
+           return redirect()->back()->with('error','Soal tidak dapat di hapus, karena telah terdapat nilai siswa yang sudah mengerjakan.');
+        }
+        $tes->soalTes()->delete();
 
        return redirect()->back()->with('success', 'Berhasil menghapus semua soal tes!');
     }

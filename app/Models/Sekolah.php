@@ -25,4 +25,9 @@ class Sekolah extends Model
     {
         return $this->hasMany(NilaiTes::class);
     }
+
+    public function profil()
+    {
+        return $this->hasMany(Profil::class);
+    }
 }

@@ -23,6 +23,8 @@ class CreateProfilTable extends Migration
             $table->string('kelas');
             $table->string('nama_ayah');
             $table->string('nama_ibu');
+            $table->string('no_telp_ayah');
+            $table->string('no_telp_ibu');
             $table->string('pekerjaan_ayah');
             $table->string('pekerjaan_ibu');
             $table->string('alamat');

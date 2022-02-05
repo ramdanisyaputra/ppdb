@@ -69,6 +69,13 @@
                 </h4>
             </div>
             <div class="card-body">
+                @if( Session::get('success') !="")
+                    <div class='alert alert-success'><center><b>{{Session::get('success')}}</b></center></div>        
+                @endif
+
+                @if( Session::get('error') !="")
+                    <div class='alert alert-danger'><center><b>{{Session::get('error')}}</b></center></div>        
+                @endif
                 <table class="table-detail">
                     <tr>
                         <td>Judul</td>
@@ -103,7 +110,7 @@
                         <a href="#" data-toggle="dropdown" class="btn btn-primary btn-sm dropdown-toggle text-light"><i class="fa fa-cog"></i> Pengaturan Soal</a>
                         <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                             <li class="dropdown-item">
-                                <a href="#" data-toggle="modal" data-target="#ujianKonfirmasiHapus">Lihat Tampilan Soal</a>
+                                <a href="{{route('tes.soal.lihat', $tes->id)}}">Lihat Tampilan Soal</a>
                             </li>
                             @if($tes->status == 0)
                             <li>

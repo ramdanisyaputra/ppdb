@@ -52,7 +52,7 @@
                                 <td>{{$row->judul}}</td>
                                 <td>{{$row->sekolah->nama}}</td>
                                 <td>{{$row->durasi}} Menit</td>
-                                <td class="text-danger">{{$row->status == 0 ? 'Belum Diterbitkan' : 'Sudah Diterbitkan'}}</td>
+                                <td class="{{$row->status == 0 ? 'text-danger' : 'text-success'}}">{{$row->status == 0 ? 'Belum Diterbitkan' : 'Sudah Diterbitkan'}}</td>
                                 <td>{{$row->status_acak == 0 ? 'Tidak Diacak' : 'Diacak'}}</td>
 
                                 <td>

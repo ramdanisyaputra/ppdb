@@ -6,7 +6,7 @@
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true" class="ml-4">
                         <span>
                             {{ Auth::guard(session()->get('role'))->user()->nama }}
-                            <span class="user-level">{{session()->get('role') == 'admin' ? 'Administrator' : 'Panitia'}}</span>
+                            <span class="user-level">{{session()->get('role') == 'peserta' ? 'Peserta' : (session()->get('role') == 'admin' ? 'Administrator' : 'Panitia')}}</span>
                             <span class="caret"></span>
                         </span>
                     </a>
@@ -40,6 +40,7 @@
                     </span>
                     <h4 class="text-section">Pengaturan</h4>
                 </li>
+                @if(session()->get('role') == 'admin')
                 <li class="nav-item {{ request()->is('sekolah*') ? 'active' : '' }}">
                     <a href="{{route('sekolah.index')}}">
                         <i class="fas fa-school"></i>
@@ -96,7 +97,57 @@
                         <p>Surat Pernyataan</p>
                     </a>
                 </li>
-            </ul>
+                @elseif(session()->get('role') == 'panitia')
+                <li class="nav-item">
+                    <a href="../widgets.html">
+                        <i class="fas fa-list"></i>
+                        <p>Data Pendaftar</p>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->is('tes*') ? 'active' : '' }}">
+                    <a href="{{route('tes.index')}}">
+                        <i class="fas fa-book"></i>
+                        <p>Tes</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../widgets.html">
+                        <i class="fas fa-graduation-cap"></i>
+                        <p>Nilai Tes</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../widgets.html">
+                        <i class="fas fa-file"></i>
+                        <p>Surat Pernyataan</p>
+                    </a>
+                </li>
+                @else
+                <li class="nav-item {{ request()->is('profil*') ? 'active' : '' }}">
+                    <a href="{{route('profil.index')}}">
+                        <i class="fas fa-address-card"></i>
+                        <p>Profil</p>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->is('peserta-tes*') ? 'active' : '' }}">
+                    <a href="{{route('peserta_tes.index')}}">
+                        <i class="fas fa-list"></i>
+                        <p>Tes</p>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->is('tes*') ? 'active' : '' }}">
+                    <a href="{{route('tes.index')}}">
+                        <i class="fas fa-file-alt"></i>
+                        <p>Form Dinas</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../widgets.html">
+                        <i class="fas fa-file-contract"></i>
+                        <p>Surat Pernyataan</p>
+                    </a>
+                </li>
+                @endif
             </ul>
         </div>
     </div>

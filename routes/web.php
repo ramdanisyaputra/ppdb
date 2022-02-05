@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\PanitiaController;
+use App\Http\Controllers\PesertaTesController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\TesController;
 use Illuminate\Support\Facades\Route;
@@ -69,10 +71,26 @@ Route::prefix('tes')->name('tes.')->group(function () {
         Route::post('store/{tes_id}', [TesController::class, 'storeSoal'])->name('store');
         Route::get('edit/{tes_id}/{soal_id}', [TesController::class, 'editSoal'])->name('edit');
         Route::get('lihat/{tes_id}', [TesController::class, 'lihatSoal'])->name('lihat');
-        Route::get('delete/{tes_id}', [TesController::class, 'deleteAll'])->name('deleteAll');
+        Route::delete('deleteAll/{tes_id}', [TesController::class, 'deleteAll'])->name('deleteAll');
         Route::put('update/{tes_id}/{soal_id}', [TesController::class, 'updateSoal'])->name('update');
-        Route::get('delete/{tes_id}/{soal_id}', [TesController::class, 'deleteSoal'])->name('delete');
+        Route::delete('delete/{tes_id}/{soal_id}', [TesController::class, 'deleteSoal'])->name('delete');
     });
 });
 
 Route::post('/web/upload_image', [TesController::class, 'uploadImage'])->name('web.upload_image');
+
+Route::prefix('profil')->name('profil.')->group(function () {
+    Route::get('', [ProfilController::class, 'index'])->name('index');
+    Route::post('store', [ProfilController::class, 'store'])->name('store');
+    Route::put('update', [ProfilController::class, 'update'])->name('update');
+});
+
+Route::prefix('peserta-tes')->name('peserta_tes.')->group(function() {
+    Route::get('/', [PesertaTesController::class, 'index'])->name('index');
+    Route::get('/{tes_id}', [PesertaTesController::class, 'boarding'])->name('boarding');
+    Route::post('/{tes_id}', [PesertaTesController::class, 'access'])->name('access');
+    Route::get('/{tes_id}/sesi/{token}', [PesertaTesController::class, 'start'])->name('start');
+    Route::post('/{tes_id}/sesi/{token}', [PesertaTesController::class, 'finish'])->name('finish');
+    Route::delete('/{tes_id}/sesi/{token}', [PesertaTesController::class, 'exit'])->name('exit');
+});
+

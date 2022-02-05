@@ -25,4 +25,9 @@ class Tes extends Model
     {
         return $this->hasMany(SoalTes::class);
     }
+
+    public function nilaiTes()
+    {
+        return $this->hasMany(NilaiTes::class);
+    }
 }
