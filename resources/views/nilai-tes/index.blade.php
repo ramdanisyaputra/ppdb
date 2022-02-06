@@ -13,7 +13,7 @@
                 <li class="separator">
                     <i class="flaticon-right-arrow"></i>
                 </li>
-                <li class="nav-item">
+            <li class="nav-item">
                     <a href="#">Tes</a>
                 </li>
             </ul>
@@ -26,19 +26,16 @@
                 </h4>
             </div>
             <div class="card-body">
-                @if( Session::get('success') !="")
-                    <div class='alert alert-success'><center><b>{{Session::get('success')}}</b></center></div>        
-                @endif
-                @if( Session::get('error') !="")
-                    <div class='alert alert-danger'><center><b>{{Session::get('error')}}</b></center></div>        
-                @endif
                 <div class="table-responsive">
                     <table id="basic-datatables" class="display table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Judul</th>
+                                <th>Sekolah</th>
                                 <th>Durasi</th>
+                                <th>Status</th>
+                                <th>Status Acak</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -47,25 +44,17 @@
                             <tr>
                                 <td>{{++$key}}</td>
                                 <td>{{$row->judul}}</td>
+                                <td>{{$row->sekolah->nama}}</td>
                                 <td>{{$row->durasi}} Menit</td>
-                                <td class="text-left">
-                                    @if (isset(session()->get('tes_saat_ini')[$row->id]))
-                                        <a 
-                                            href="{{ route('peserta_tes.start', [$row->id, session()->get('tes_saat_ini')[$row->id]['token']]) }}" 
-                                            class="btn btn-sm btn-warning px-3 rounded-pill shadow">
-                                            Lanjutkan
-                                        </a>
-                                    @elseif ($row->nilaiTes()->where('peserta_id', auth()->guard(session()->get('role'))->user()->id)->count() > 0)
-                                        <button 
-                                            class="btn btn-light btn-sm px-3 rounded-pill">
-                                            Selesai
-                                        </button>
+                                <td class="{{$row->status == 0 ? 'text-danger' : 'text-success'}}">{{$row->status == 0 ? 'Belum Diterbitkan' : 'Sudah Diterbitkan'}}</td>
+                                <td>{{$row->status_acak == 0 ? 'Tidak Diacak' : 'Diacak'}}</td>
+                                <td>
+                                    @if($row->status == 0)
+                                    Terbitkan Terlebih Dahulu
                                     @else
-                                        <a 
-                                            href="{{ route('peserta_tes.boarding', $row->id) }}" 
-                                            class="btn btn-sm btn-success px-3 rounded-pill shadow">
-                                            Kerjakan
-                                        </a>
+                                    <a href="{{route('nilai_tes.detail', $row->id)}}" title="Detail" class="btn btn-icon btn-round btn-primary btn-sm">
+                                        <i class="fa fa-eye mt-2"></i>
+                                    </a>
                                     @endif
                                 </td>
                             </tr>

@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Validator;
 
 class TesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkRole');
+    }
+
     public function uploadImage(Request $request)
     {
         $file = $request->upload;
@@ -31,8 +36,14 @@ class TesController extends Controller
 
     public function index()
     {
-        $data['tes'] = Tes::all();
-        $data['sekolah'] = Sekolah::all();
+        if(session()->get('role') == 'panitia'){
+            $data['tes'] = Tes::where('sekolah_id', auth()->guard(session()->get('role'))->user()->sekolah_id)->get();
+            $data['sekolah'] = [];
+
+        }else{
+            $data['tes'] = Tes::all();
+            $data['sekolah'] = Sekolah::all();
+        }
         return view('tes.index', $data);
     }
 
@@ -117,6 +128,13 @@ class TesController extends Controller
         $data['soal_tes'] = SoalTes::where('tes_id', $id)->get();
 
         return view('tes.soal.index', $data);
+    }
+
+    public function lihatSoal($id){
+        $data['tes'] = Tes::find($id);
+        $data['soalTes'] = SoalTes::where('tes_id', $id)->get();
+
+        return view('tes.soal.lihat', $data);
     }
 
     public function createSoal($tes)

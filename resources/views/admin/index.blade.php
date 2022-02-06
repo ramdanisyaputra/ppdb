@@ -53,8 +53,8 @@
                                         <i class="fa fa-pen-square"></i>
                                     </button>
                                 </td>
-                                @endforeach
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

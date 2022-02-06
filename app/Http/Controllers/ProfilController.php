@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ProfilController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkPeserta');
+    }
+    
     public function index()
     {
         $data['sekolah'] = Sekolah::all();

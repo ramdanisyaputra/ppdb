@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkAdmin');
+    }
+
     public function index()
     {
         $data['admin'] = Admin::all();

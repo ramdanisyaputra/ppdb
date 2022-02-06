@@ -65,19 +65,8 @@
                                     <span class="sub-item">Panitia</span>
                                 </a>
                             </li>
-                            <!-- <li>
-                                <a href="{{route('peserta.index')}}">
-                                    <span class="sub-item">Peserta</span>
-                                </a>
-                            </li> -->
                         </ul>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a href="../widgets.html">
-                        <i class="fas fa-list"></i>
-                        <p>Data Pendaftar</p>
-                    </a>
                 </li>
                 <li class="nav-item {{ request()->is('tes*') ? 'active' : '' }}">
                     <a href="{{route('tes.index')}}">
@@ -85,10 +74,16 @@
                         <p>Tes</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="../widgets.html">
+                <li class="nav-item {{ request()->is('nilai-tes*') ? 'active' : '' }}">
+                    <a href="{{route('nilai_tes.index')}}">
                         <i class="fas fa-graduation-cap"></i>
                         <p>Nilai Tes</p>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->is('pendaftar*') ? 'active' : '' }}">
+                    <a href="{{route('pendaftar.index')}}">
+                        <i class="fas fa-list"></i>
+                        <p>Data Pendaftar</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -98,22 +93,22 @@
                     </a>
                 </li>
                 @elseif(session()->get('role') == 'panitia')
-                <li class="nav-item">
-                    <a href="../widgets.html">
-                        <i class="fas fa-list"></i>
-                        <p>Data Pendaftar</p>
-                    </a>
-                </li>
                 <li class="nav-item {{ request()->is('tes*') ? 'active' : '' }}">
                     <a href="{{route('tes.index')}}">
                         <i class="fas fa-book"></i>
                         <p>Tes</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="../widgets.html">
+                <li class="nav-item {{ request()->is('nilai-tes*') ? 'active' : '' }}">
+                    <a href="{{route('nilai_tes.index')}}">
                         <i class="fas fa-graduation-cap"></i>
                         <p>Nilai Tes</p>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->is('pendaftar*') ? 'active' : '' }}">
+                    <a href="{{route('pendaftar.index')}}">
+                        <i class="fas fa-list"></i>
+                        <p>Data Pendaftar</p>
                     </a>
                 </li>
                 <li class="nav-item">

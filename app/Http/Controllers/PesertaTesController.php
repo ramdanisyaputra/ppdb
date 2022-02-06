@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class PesertaTesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkPeserta');
+    }
+
     public function index()
     {
         $profil = Profil::where('peserta_id', auth()->guard(session()->get('role'))->user()->id)->first();

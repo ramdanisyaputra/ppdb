@@ -3,7 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DaftarController;
+use App\Http\Controllers\NilaiTesController;
 use App\Http\Controllers\PanitiaController;
+use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\PesertaTesController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SekolahController;
@@ -58,6 +60,12 @@ Route::prefix('peserta')->name('peserta.')->group(function () {
     Route::get('', [PrincipalController::class, 'index'])->name('index');
 });
 
+Route::prefix('pendaftar')->name('pendaftar.')->group(function () {
+    Route::get('', [PendaftarController::class, 'index'])->name('index');
+    Route::get('detail/{peserta_id}', [PendaftarController::class, 'detail'])->name('detail');
+    Route::get('detail-profil/{peserta_id}', [PendaftarController::class, 'detailProfil'])->name('detail_profil');
+});
+
 Route::prefix('tes')->name('tes.')->group(function () {
     Route::get('', [TesController::class, 'index'])->name('index');
     Route::post('store', [TesController::class, 'store'])->name('store');
@@ -75,6 +83,13 @@ Route::prefix('tes')->name('tes.')->group(function () {
         Route::put('update/{tes_id}/{soal_id}', [TesController::class, 'updateSoal'])->name('update');
         Route::delete('delete/{tes_id}/{soal_id}', [TesController::class, 'deleteSoal'])->name('delete');
     });
+});
+
+Route::prefix('nilai-tes')->name('nilai_tes.')->group(function () {
+    Route::get('', [NilaiTesController::class, 'index'])->name('index');
+    Route::get('{tes_id}', [NilaiTesController::class, 'indexNilai'])->name('detail');
+    Route::get('detail-pengerjaan/{tes_id}/{nilai_id}', [NilaiTesController::class, 'detailPengerjaan'])->name('detail_pengerjaan');
+    Route::delete('nilai-delete/{nilai_id}', [NilaiTesController::class, 'nilaiDelete'])->name('nilai_delete');
 });
 
 Route::post('/web/upload_image', [TesController::class, 'uploadImage'])->name('web.upload_image');

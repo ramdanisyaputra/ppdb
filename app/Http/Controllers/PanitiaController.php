@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class PanitiaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('checkAdmin');
+    }
+    
     public function index()
     {
         $data['panitia'] = Panitia::all();

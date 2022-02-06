@@ -64,8 +64,8 @@
                                         <i class="fa fa-eye mt-2"></i>
                                     </a>
                                 </td>
-                                @endforeach
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -89,6 +89,9 @@
                         <label for="judul">Judul</label>
                         <input type="text" class="form-control" id="judul" name="judul" required>
                     </div>
+                    @if(session()->get('role') == 'panitia')
+                    <input type="hidden" name="sekolah_id" value="{{auth()->guard(session()->get('role'))->user()->sekolah_id}}">
+                    @else
                     <div class="form-group">
                         <label for="sekolah_id">Sekolah</label>
                         <select name="sekolah_id" id="sekolah_id" class="custom-select" required>
@@ -98,6 +101,7 @@
                             @endforeach
                         </select>
                     </div>
+                    @endif
                     <div class="form-group">
                         <label for="durasi">Durasi(menit)</label>
                         <input type="number" class="form-control" id="durasi" name="durasi" required>
@@ -137,6 +141,9 @@
                         <label for="judul">Judul</label>
                         <input type="text" class="form-control" id="judul" name="judul" required>
                     </div>
+                    @if(session()->get('role') == 'panitia')
+                    <input type="hidden" name="sekolah_id" value="{{auth()->guard(session()->get('role'))->user()->sekolah_id}}">
+                    @else
                     <div class="form-group">
                         <label for="sekolah_id">Sekolah</label>
                         <select name="sekolah_id" id="sekolah_id" class="custom-select" required>
@@ -146,6 +153,7 @@
                             @endforeach
                         </select>
                     </div>
+                    @endif
                     <div class="form-group">
                         <label for="durasi">Durasi(menit)</label>
                         <input type="number" class="form-control" id="durasi" name="durasi" required>
