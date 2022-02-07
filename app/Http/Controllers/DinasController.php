@@ -4,99 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Dinas;
 use App\Models\Jenis;
-use App\Models\Peserta;
 use App\Models\Prestasi;
 use App\Models\Profil;
 use App\Models\Sekolah;
 use Illuminate\Http\Request;
 
-class PendaftarController extends Controller
+class DinasController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('checkRole');
+        $this->middleware('checkPeserta');
     }
     
     public function index()
     {
-        if(session()->get('role') == 'panitia'){
-            $data['peserta'] = Peserta::whereHas('profil',function ($query) {
-                $query->where('sekolah_id', auth()->guard(session()->get('role'))->user()->sekolah_id);
-            })->with('nilaiTes')->get();
-        }else{
-            $data['peserta'] = Peserta::all();
-        }
-        return view('pendaftar.index', $data);
+        // $data['dinas'] = Dinas::where('id', auth()->guard(session()->get('role'))->user()->id)->first();
+        return view('dinas.index');
     }
 
-    public function detail($peserta)
-    {
-        $data['peserta_id'] = $peserta;
-        $data['profil'] = Profil::where('peserta_id', $peserta)->first();
-        $data['dinas'] = Dinas::where('peserta_id', $peserta)->first();
-        return view('pendaftar.detail', $data);
-    }
-
-    public function detailProfil($profil)
-    {
-        $data['profil'] = Profil::where('id', $profil)->first();
-        return view('pendaftar.detail_profil', $data);
-    }
-
-    public function editProfil($profil)
-    {
-        $data['sekolah'] = Sekolah::all();
-        $data['profil'] = Profil::where('id', $profil)->first();
-        return view('pendaftar.edit_profil', $data);
-    }
-
-    public function updateProfil(Request $request)
-    {
-        Profil::find($request->id)->update([
-            'panggilan' => $request->panggilan,
-            'nik' => $request->nik,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'ttl' => $request->ttl,
-            'asal_sekolah' => $request->asal_sekolah,
-            'kelas' => $request->kelas,
-            'nama_ayah' => $request->nama_ayah,
-            'nama_ibu' => $request->nama_ibu,
-            'no_telp_ayah' => $request->no_telp_ayah,
-            'no_telp_ibu' => $request->no_telp_ibu,
-            'pekerjaan_ayah' => $request->pekerjaan_ayah,
-            'pekerjaan_ibu' => $request->pekerjaan_ibu,
-            'alamat' => $request->alamat,
-            'sekolah_id' => $request->sekolah_id
-        ]);
-
-        return redirect()->back()->with('success','Data Berhasil Dirubah');
-    }
-
-    public function detailDinas($peserta)
-    {
-        $data['dinas'] = Dinas::where('peserta_id', $peserta)->first();
-        if($data['dinas'] != null){
-            $data['prestasi'] = Prestasi::where('dinas_id', $data['dinas']->id)->get();
-            $data['jenis'] = Jenis::where('dinas_id', $data['dinas']->id)->get();
-        }
-        $data['peserta'] = Peserta::find($peserta);
-        return view('pendaftar.detail_dinas', $data);
-    }
-
-    public function pdfDinas($peserta)
-    {
-        $data['dinas'] = Dinas::where('peserta_id', $peserta)->first();
-        $data['prestasi'] = Prestasi::where('dinas_id', $data['dinas']->id)->get();
-        $data['jenis'] = Jenis::where('dinas_id', $data['dinas']->id)->get();
-        return view('pendaftar.pdf_dinas', $data);
-    }
-    
-    public function storeDinas(Request $request)
+    public function store(Request $request)
     {
         $dinas = Dinas::create([
-            'peserta_id' => $request->peserta_id,
+            'peserta_id' => auth()->guard(session()->get('role'))->user()->id,
             'tanggal' => $request->tanggal,
-            'tingkat' => $request->tingkat_form,
+            'tingkat' => $request->tingkat,
             'program' => $request->program,
             'reg' => $request->reg,
             'nisn' => $request->nisn,
@@ -104,6 +35,7 @@ class PendaftarController extends Controller
             'no_seri_ijazah' => $request->no_seri_ijazah,
             'no_seri_skhun' => $request->no_seri_skhun,
             'no_ujian_nasional' => $request->no_ujian_nasional,
+            'nik' => $request->nik,
             'npsn' => $request->npsn,
             'agama' => $request->agama,
             'berkebutuhan_khusus' => $request->berkebutuhan_khusus,
@@ -114,7 +46,6 @@ class PendaftarController extends Controller
             'propinsi' => $request->propinsi,
             'rt' => $request->rt,
             'rw' => $request->rw,
-            'kode_pos' => $request->kode_pos,
             'alat_transportasi' => $request->alat_transportasi,
             'jenis_tinggal' => $request->jenis_tinggal,
             'no_telp_rumah' => $request->no_telp_rumah,
@@ -182,11 +113,11 @@ class PendaftarController extends Controller
         return redirect()->back()->with('success','Data Berhasil Ditambahkan');
     }
 
-    public function updateDinas(Request $request)
+    public function update(Request $request)
     {
-        Dinas::find($request->id)->update([
+        $dinas = Dinas::find($request->id)->update([
             'tanggal' => $request->tanggal,
-            'tingkat' => $request->tingkat_form,
+            'tingkat' => $request->tingkat,
             'program' => $request->program,
             'reg' => $request->reg,
             'nisn' => $request->nisn,
@@ -194,6 +125,7 @@ class PendaftarController extends Controller
             'no_seri_ijazah' => $request->no_seri_ijazah,
             'no_seri_skhun' => $request->no_seri_skhun,
             'no_ujian_nasional' => $request->no_ujian_nasional,
+            'nik' => $request->nik,
             'npsn' => $request->npsn,
             'agama' => $request->agama,
             'berkebutuhan_khusus' => $request->berkebutuhan_khusus,
@@ -204,7 +136,6 @@ class PendaftarController extends Controller
             'propinsi' => $request->propinsi,
             'rt' => $request->rt,
             'rw' => $request->rw,
-            'kode_pos' => $request->kode_pos,
             'alat_transportasi' => $request->alat_transportasi,
             'jenis_tinggal' => $request->jenis_tinggal,
             'no_telp_rumah' => $request->no_telp_rumah,
@@ -247,7 +178,7 @@ class PendaftarController extends Controller
             foreach($request->jenis_prestasi as $key => $row)
             {
                 Prestasi::create([
-                    'dinas_id' => $request->id,
+                    'dinas_id' => $dinas->id,
                     'jenis_prestasi' => $request->jenis_prestasi[$key],
                     'tingkat' => $request->tingkat[$key],
                     'nama_prestasi' => $request->nama_prestasi[$key],
@@ -262,7 +193,7 @@ class PendaftarController extends Controller
             foreach($request->jenis as $key => $row)
             {
                 Jenis::create([
-                    'dinas_id' => $request->id,
+                    'dinas_id' => $dinas->id,
                     'jenis' => $request->jenis[$key],
                     'penyelenggara' => $request->penyelenggara[$key],
                     'tahun_mulai' => $request->tahun_mulai[$key],

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DaftarController;
+use App\Http\Controllers\DinasController;
 use App\Http\Controllers\NilaiTesController;
 use App\Http\Controllers\PanitiaController;
 use App\Http\Controllers\PendaftarController;
@@ -63,7 +64,14 @@ Route::prefix('peserta')->name('peserta.')->group(function () {
 Route::prefix('pendaftar')->name('pendaftar.')->group(function () {
     Route::get('', [PendaftarController::class, 'index'])->name('index');
     Route::get('detail/{peserta_id}', [PendaftarController::class, 'detail'])->name('detail');
-    Route::get('detail-profil/{peserta_id}', [PendaftarController::class, 'detailProfil'])->name('detail_profil');
+    Route::get('detail-profil/{profil_id}', [PendaftarController::class, 'detailProfil'])->name('detail_profil');
+    Route::get('edit-profil/{profil_id}', [PendaftarController::class, 'editProfil'])->name('edit_profil');
+    Route::put('update-profil', [PendaftarController::class, 'updateProfil'])->name('update_profil');
+    Route::get('detail-dinas/{peserta_id}', [PendaftarController::class, 'detailDinas'])->name('detail_dinas');
+    Route::get('pdf-dinas/{peserta_id}', [PendaftarController::class, 'pdfDinas'])->name('pdf_dinas');
+    Route::post('store-dinas', [PendaftarController::class, 'storeDinas'])->name('store_dinas');
+    Route::put('update-dinas', [PendaftarController::class, 'updateDinas'])->name('update_dinas');
+
 });
 
 Route::prefix('tes')->name('tes.')->group(function () {
@@ -98,6 +106,12 @@ Route::prefix('profil')->name('profil.')->group(function () {
     Route::get('', [ProfilController::class, 'index'])->name('index');
     Route::post('store', [ProfilController::class, 'store'])->name('store');
     Route::put('update', [ProfilController::class, 'update'])->name('update');
+});
+
+Route::prefix('dinas')->name('dinas.')->group(function () {
+    Route::get('', [DinasController::class, 'index'])->name('index');
+    Route::post('store', [DinasController::class, 'store'])->name('store');
+    Route::put('update', [DinasController::class, 'update'])->name('update');
 });
 
 Route::prefix('peserta-tes')->name('peserta_tes.')->group(function() {

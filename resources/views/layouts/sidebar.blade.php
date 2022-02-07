@@ -130,12 +130,6 @@
                         <p>Tes</p>
                     </a>
                 </li>
-                <li class="nav-item {{ request()->is('tes*') ? 'active' : '' }}">
-                    <a href="{{route('tes.index')}}">
-                        <i class="fas fa-file-alt"></i>
-                        <p>Form Dinas</p>
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a href="../widgets.html">
                         <i class="fas fa-file-contract"></i>

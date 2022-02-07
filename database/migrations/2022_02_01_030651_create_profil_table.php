@@ -17,6 +17,7 @@ class CreateProfilTable extends Migration
             $table->id();
             $table->foreignId('peserta_id')->references('id')->on('peserta')->onDelete('cascade');
             $table->string('panggilan');
+            $table->string('nik');
             $table->enum('jenis_kelamin',['L','P']);
             $table->string('ttl');
             $table->string('asal_sekolah');

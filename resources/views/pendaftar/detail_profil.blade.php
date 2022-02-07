@@ -29,6 +29,7 @@
                 <h4 class="card-title">
                     Data Profil
                     &nbsp;
+                    <a href="{{route('pendaftar.edit_profil', $profil->id)}}" class="btn btn-primary btn-sm text-light" style="float:right">Edit Data</a>
                 </h4>
             </div>
             <div class="card-body">
@@ -42,6 +43,11 @@
                         <td>Nama Panggilan</td>
                         <td class="px-2">:</td>
                         <td>{{$profil->panggilan}}</td>
+                    </tr>
+                    <tr>
+                        <td>NIK</td>
+                        <td class="px-2">:</td>
+                        <td>{{$profil->nik}}</td>
                     </tr>
                     <tr>
                         <td>Jenis Kelamin</td>

@@ -16,7 +16,7 @@ class ProfilController extends Controller
     public function index()
     {
         $data['sekolah'] = Sekolah::all();
-        $data['profil'] = Profil::where('id', auth()->guard(session()->get('role'))->user()->id)->first();
+        $data['profil'] = Profil::where('peserta_id', auth()->guard(session()->get('role'))->user()->id)->first();
         return view('profil.index', $data);
     }
 
@@ -25,6 +25,7 @@ class ProfilController extends Controller
         Profil::create([
             'peserta_id' => auth()->guard(session()->get('role'))->user()->id,
             'panggilan' => $request->panggilan,
+            'nik' => $request->nik,
             'jenis_kelamin' => $request->jenis_kelamin,
             'ttl' => $request->ttl,
             'asal_sekolah' => $request->asal_sekolah,
@@ -46,6 +47,7 @@ class ProfilController extends Controller
     {
         Profil::find($request->id)->update([
             'panggilan' => $request->panggilan,
+            'nik' => $request->nik,
             'jenis_kelamin' => $request->jenis_kelamin,
             'ttl' => $request->ttl,
             'asal_sekolah' => $request->asal_sekolah,

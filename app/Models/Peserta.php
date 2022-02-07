@@ -17,6 +17,11 @@ class Peserta extends Authenticatable
         return $this->hasOne(Profil::class);
     }
 
+    public function dinas()
+    {
+        return $this->hasOne(Dinas::class);
+    }
+
     public function nilaiTes()
     {
         return $this->hasMany(NilaiTes::class);

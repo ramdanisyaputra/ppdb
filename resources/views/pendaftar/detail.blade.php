@@ -53,7 +53,13 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        
+                        @if($dinas != null )
+                        <h4>Data dinas peserta ini <span class="text-success">Sudah Lengkap</span>. Silahkan klik tombol dibawah untuk melihat selengkapnya.</h4>
+                        <center><a href="{{route('pendaftar.detail_dinas', $peserta_id)}}" class="btn btn-primary">Detail</a></center>
+                        @else
+                        <h4>Data dinas peserta ini <span class="text-danger">Belum Lengkap</span>. Silahkan klik tombol dibawah untuk melihat selengkapnya</h4>
+                        <center><a href="{{route('pendaftar.detail_dinas', $peserta_id)}}" class="btn btn-primary">Detail</a></center>
+                        @endif
                     </div>
                 </div>
             </div>
