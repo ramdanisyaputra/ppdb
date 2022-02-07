@@ -64,6 +64,46 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            Nilai Tes
+                            &nbsp;
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        @if($nilai_tes != null )
+                        <h4>Nilai tes peserta ini <span class="text-success">Sudah Lengkap</span>. Silahkan klik tombol dibawah untuk melihat selengkapnya.</h4>
+                        <center><a href="{{route('pendaftar.detail_tes', $peserta_id)}}" class="btn btn-primary">Detail</a></center>
+                        @else
+                        <h4>Nilai tes peserta ini <span class="text-danger">Belum Lengkap</span>.</h4>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            Surat Pernyataan
+                            &nbsp;
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        @if($pernyataan != null )
+                        <h4>Surat Pernyataan Peserta ini <span class="text-success">Sudah Lengkap</span>. Silahkan klik tombol dibawah untuk melihat selengkapnya.</h4>
+                        <center><a href="{{route('pendaftar.detail_pernyataan', $peserta_id)}}" class="btn btn-primary">Detail</a></center>
+                        @else
+                        <h4>Surat Pernyataan Peserta ini <span class="text-danger">Belum Lengkap</span>.</h4>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
         
     </div>
 </div>

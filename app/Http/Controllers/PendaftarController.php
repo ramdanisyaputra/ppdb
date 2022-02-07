@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Dinas;
 use App\Models\Jenis;
+use App\Models\NilaiTes;
+use App\Models\Pernyataan;
 use App\Models\Peserta;
 use App\Models\Prestasi;
 use App\Models\Profil;
@@ -34,6 +36,8 @@ class PendaftarController extends Controller
         $data['peserta_id'] = $peserta;
         $data['profil'] = Profil::where('peserta_id', $peserta)->first();
         $data['dinas'] = Dinas::where('peserta_id', $peserta)->first();
+        $data['nilai_tes'] = NilaiTes::where('peserta_id', $peserta)->first();
+        $data['pernyataan'] = Pernyataan::where('peserta_id', $peserta)->first();
         return view('pendaftar.detail', $data);
     }
 
@@ -41,6 +45,12 @@ class PendaftarController extends Controller
     {
         $data['profil'] = Profil::where('id', $profil)->first();
         return view('pendaftar.detail_profil', $data);
+    }
+
+    public function detailPernyataan($peserta)
+    {
+        $data['pernyataan'] = Pernyataan::where('peserta_id', $peserta)->first();
+        return view('pendaftar.detail_pernyataan', $data);
     }
 
     public function editProfil($profil)
@@ -81,6 +91,41 @@ class PendaftarController extends Controller
         }
         $data['peserta'] = Peserta::find($peserta);
         return view('pendaftar.detail_dinas', $data);
+    }
+
+    public function detailLampiranDinas($peserta)
+    {
+        $data['dinas'] = Dinas::where('peserta_id', $peserta)->first();
+        $data['peserta'] = Peserta::find($peserta);
+        return view('pendaftar.detail_lampiran_dinas', $data);
+    }
+
+    public function updateLampiranDinas(Request $request)
+    {
+        $request->validate([
+            'kk' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'akte' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+
+        $imageKK = time().'.'.$request->kk->extension();
+
+        $imageAkte = time().'.'.$request->akte->extension();
+
+        $imageFoto = time().'.'.$request->foto->extension();
+
+        $request->kk->move(public_path('/images/lampiran/kk'), $imageKK);
+        $request->akte->move(public_path('/images/lampiran/akte'), $imageAkte);
+        $request->foto->move(public_path('/images/lampiran/foto'), $imageFoto);
+
+        Dinas::find($request->id)->update([
+            'kk' => $imageKK,
+            'akte' => $imageAkte,
+            'foto' => $imageFoto
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil Menambahkan Lamiran');
+
     }
 
     public function pdfDinas($peserta)
@@ -272,5 +317,12 @@ class PendaftarController extends Controller
         }
 
         return redirect()->back()->with('success','Data Berhasil Dirubah');
+    }
+
+    public function detailTes($peserta)
+    {
+        $data['nilaiTes'] = NilaiTes::where('peserta_id', $peserta)->get();
+        $data['peserta'] = Peserta::find($peserta);
+        return view('pendaftar.detail_tes', $data);
     }
 }

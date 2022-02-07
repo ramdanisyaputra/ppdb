@@ -72,6 +72,9 @@ class CreateDinasTable extends Migration
             $table->string('waktu_tempuh');
             $table->string('waktu_tempuh_detail');
             $table->string('saudara_kandung');
+            $table->string('kk')->nullable();
+            $table->string('akte')->nullable();
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@
                     <div class="collapse in" id="collapseExample">
                         <ul class="nav">
                             <li>
-                                <a href="#edit">
+                                <a href="{{route('change_password.index')}}">
                                     <span class="link-collapse">Change Password</span>
                                 </a>
                             </li>
@@ -86,12 +86,6 @@
                         <p>Data Pendaftar</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="../widgets.html">
-                        <i class="fas fa-file"></i>
-                        <p>Surat Pernyataan</p>
-                    </a>
-                </li>
                 @elseif(session()->get('role') == 'panitia')
                 <li class="nav-item {{ request()->is('tes*') ? 'active' : '' }}">
                     <a href="{{route('tes.index')}}">
@@ -111,12 +105,6 @@
                         <p>Data Pendaftar</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="../widgets.html">
-                        <i class="fas fa-file"></i>
-                        <p>Surat Pernyataan</p>
-                    </a>
-                </li>
                 @else
                 <li class="nav-item {{ request()->is('profil*') ? 'active' : '' }}">
                     <a href="{{route('profil.index')}}">
@@ -130,8 +118,8 @@
                         <p>Tes</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="../widgets.html">
+                <li class="nav-item {{ request()->is('pernyataan*') ? 'active' : '' }}">
+                    <a href="{{route('pernyataan.index')}}">
                         <i class="fas fa-file-contract"></i>
                         <p>Surat Pernyataan</p>
                     </a>

@@ -5,7 +5,7 @@
 	<title>PPDB</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="{{asset('atlantis/assets/img/icon.ico')}}" type="image/x-icon"/>
-	
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<!-- Fonts and icons -->
 	<script src="{{asset('atlantis/assets/js/plugin/webfont/webfont.min.js')}}"></script>
 	<script>
@@ -30,7 +30,7 @@
 			<!-- Logo Header -->
 			<div class="logo-header" data-background-color="blue">
 				
-				<a href="../index.html" class="logo">
+				<a href="{{route('home')}}" class="logo">
                     <p class="navbar-brand text-light">PPDB</p>
 				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@
 							<ul class="dropdown-menu dropdown-user animated fadeIn">
 								<div class="dropdown-user-scroll scrollbar-outer">
 									<li>
-										<a class="dropdown-item" href="#">Reset Password</a>
+										<a class="dropdown-item" href="{{route('change_password.index')}}">Change Password</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
 									</li>

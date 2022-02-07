@@ -29,6 +29,10 @@
                 <h4 class="card-title">
                     Form Dinas
                     &nbsp;
+                    @if($dinas != null)
+                        <a href="{{route('pendaftar.pdf_dinas', $peserta->id)}}" class="btn btn-primary btn-sm text-light ml-2" style="float:right">Detail</a>
+                        <a href="{{route('pendaftar.detail_lampiran_dinas', $peserta->id)}}" class="btn btn-primary btn-sm text-light"  style="float:right">Lampiran</a>
+                    @endif
                 </h4>
             </div>
             <div class="card-body">

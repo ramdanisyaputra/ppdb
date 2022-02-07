@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\DinasController;
 use App\Http\Controllers\NilaiTesController;
 use App\Http\Controllers\PanitiaController;
 use App\Http\Controllers\PendaftarController;
+use App\Http\Controllers\PernyataanController;
 use App\Http\Controllers\PesertaTesController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SekolahController;
@@ -57,9 +59,6 @@ Route::prefix('panitia')->name('panitia.')->group(function () {
     Route::delete('delete/{id}', [PanitiaController::class, 'delete'])->name('delete');
 });
 
-Route::prefix('peserta')->name('peserta.')->group(function () {
-    Route::get('', [PrincipalController::class, 'index'])->name('index');
-});
 
 Route::prefix('pendaftar')->name('pendaftar.')->group(function () {
     Route::get('', [PendaftarController::class, 'index'])->name('index');
@@ -68,9 +67,14 @@ Route::prefix('pendaftar')->name('pendaftar.')->group(function () {
     Route::get('edit-profil/{profil_id}', [PendaftarController::class, 'editProfil'])->name('edit_profil');
     Route::put('update-profil', [PendaftarController::class, 'updateProfil'])->name('update_profil');
     Route::get('detail-dinas/{peserta_id}', [PendaftarController::class, 'detailDinas'])->name('detail_dinas');
+    Route::get('detail-lampiran-dinas/{peserta_id}', [PendaftarController::class, 'detailLampiranDinas'])->name('detail_lampiran_dinas');
+    Route::get('detail-tes/{peserta_id}', [PendaftarController::class, 'detailTes'])->name('detail_tes');
     Route::get('pdf-dinas/{peserta_id}', [PendaftarController::class, 'pdfDinas'])->name('pdf_dinas');
     Route::post('store-dinas', [PendaftarController::class, 'storeDinas'])->name('store_dinas');
     Route::put('update-dinas', [PendaftarController::class, 'updateDinas'])->name('update_dinas');
+    Route::put('update-lampiran-dinas', [PendaftarController::class, 'updateLampiranDinas'])->name('update_lampiran_dinas');
+    Route::get('detail-pernyataan/{peserta_id}', [PendaftarController::class, 'detailPernyataan'])->name('detail_pernyataan');
+
 
 });
 
@@ -123,3 +127,12 @@ Route::prefix('peserta-tes')->name('peserta_tes.')->group(function() {
     Route::delete('/{tes_id}/sesi/{token}', [PesertaTesController::class, 'exit'])->name('exit');
 });
 
+Route::prefix('pernyataan')->name('pernyataan.')->group(function () {
+    Route::get('', [PernyataanController::class, 'index'])->name('index');
+    Route::post('store', [PernyataanController::class, 'store'])->name('store');
+});
+
+Route::prefix('change-password')->name('change_password.')->group(function () {
+    Route::get('', [ChangePasswordController::class, 'index'])->name('index');
+    Route::put('update', [ChangePasswordController::class, 'update'])->name('update');
+});
