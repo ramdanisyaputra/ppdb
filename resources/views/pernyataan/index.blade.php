@@ -38,7 +38,7 @@
                 <p style="margin-bottom:0.0000pt;text-align:justify;line-height:150%;"><span style="font-family:'Times New Roman';line-height:150%;font-size:16px;">Saya yang bertanda tangan di bawah ini,</span></p>
                 <p style="margin-bottom:0.0000pt;text-align:justify;line-height:150%;"><span style="font-family:'Times New Roman';line-height:150%;font-size:16px;">Nama&nbsp;</span><span style="font-family:'Times New Roman';line-height:150%;font-size:16px;">: &nbsp; @if($pernyataan == null)</span><input type="text" name="nama" id="nama" required placeholder="Isi nama">@else {{$pernyataan->nama}} @endif</p>
                 <p style="margin-bottom:0.0000pt;text-align:justify;line-height:150%;"><span style="font-family:'Times New Roman';line-height:150%;font-size:16px;">Nama ana</span><span style="font-family:'Times New Roman';line-height:150%;font-size:16px;">k</span><span style="font-family:'Times New Roman';line-height:150%;font-size:16px;">: &nbsp;{{auth()->guard(session()->get('role'))->user()->nama}}</span></p>
-                <p style="margin-bottom:0.0000pt;text-align:justify;line-height:150%;"><span style="font-family:'Times New Roman';line-height:150%;font-size:16px;">Masuk tahun pelajaran</span><span style="font-family:'Times New Roman';line-height:150%;font-size:16px;">: &nbsp;............................................................................</span></p>
+                <p style="margin-bottom:0.0000pt;text-align:justify;line-height:150%;"><span style="font-family:'Times New Roman';line-height:150%;font-size:16px;">Masuk tahun pelajaran</span><span style="font-family:'Times New Roman';line-height:150%;font-size:16px;">: &nbsp;{{$profil->tahunAjaran->nama}}</span></p>
                 <p style="margin-bottom:0.0000pt;text-align:justify;line-height:150%;"><span style="font-family:'Times New Roman';line-height:150%;font-size:16px;">Dengan ini menyatakan sanggup :</span></p>
                 <ul style="list-style-type: undefined;margin-left:8px;">
                     <li><span style="font-family:'Times New Roman';font-size:16px;font-size:12.0000pt;">1.&nbsp;</span><span style="font-family:'Times New Roman';font-size:12.0000pt;">Mengikuti semua program yang diselenggarakan oleh sekolah, meliputi :</span></li>
@@ -503,6 +503,7 @@
                     </tbody>
                 </table>
                 <p style="margin-bottom:0.0000pt;margin-left:18.0000pt;text-indent:36.0000pt;text-align:justify;line-height:150%;"><span style="font-family:'Times New Roman';line-height:150%;font-size:16px;">Demikian, surat pernyataan ini saya tanda tangani dengan sadar dan tanpa paksaan dari pihak manapun, untuk dapat dipergunakan sebagaimana mestinya.</span></p>
+                @if($pernyataan != null)
                 <div style="float:right">
                     <table class="mt-4">
                         <tr>
@@ -518,6 +519,7 @@
                         </tr>
                     </table>
                 </div>
+                @endif
                 @if($pernyataan == null)
                 <center>Tanda tangan dibawah ini</center>
                 <center>

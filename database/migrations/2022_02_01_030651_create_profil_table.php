@@ -30,6 +30,7 @@ class CreateProfilTable extends Migration
             $table->string('pekerjaan_ibu');
             $table->string('alamat');
             $table->foreignId('sekolah_id')->references('id')->on('sekolah')->onDelete('cascade');
+            $table->foreignId('tahun_ajaran_id')->references('id')->on('tahun_ajaran')->onDelete('cascade');
             $table->timestamps();
         });
     }

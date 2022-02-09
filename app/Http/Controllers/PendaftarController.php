@@ -10,6 +10,7 @@ use App\Models\Peserta;
 use App\Models\Prestasi;
 use App\Models\Profil;
 use App\Models\Sekolah;
+use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 
 class PendaftarController extends Controller
@@ -56,6 +57,7 @@ class PendaftarController extends Controller
     public function editProfil($profil)
     {
         $data['sekolah'] = Sekolah::all();
+        $data['tahun_ajaran'] = TahunAjaran::all();
         $data['profil'] = Profil::where('id', $profil)->first();
         return view('pendaftar.edit_profil', $data);
     }
@@ -63,6 +65,7 @@ class PendaftarController extends Controller
     public function updateProfil(Request $request)
     {
         Profil::find($request->id)->update([
+            'tahun_ajaran_id' => $request->tahun_ajaran_id,
             'panggilan' => $request->panggilan,
             'nik' => $request->nik,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -126,6 +129,14 @@ class PendaftarController extends Controller
 
         return redirect()->back()->with('success', 'Berhasil Menambahkan Lamiran');
 
+    }
+
+    public function updateNilaiStatus(Request $request)
+    {
+        NilaiTes::find($request->id)->update([
+            'status' => $request->status
+        ]);
+        return redirect()->back()->with('success', 'Berhasil Merubah Status');
     }
 
     public function pdfDinas($peserta)

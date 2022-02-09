@@ -51,6 +51,22 @@ class PesertaTesController extends Controller
         return view('peserta-tes.boarding', $data);
     }
 
+    public function boarding2($tes)
+    {
+        $data['tes'] = Tes::find($tes);
+        $profil = Profil::where('peserta_id', auth()->guard(session()->get('role'))->user()->id)->first();
+        
+        NilaiTes::where('peserta_id', auth()->guard(session()->get('role'))->user()->id)
+                    ->where('tes_id', $data['tes']->id)
+                    ->delete();
+                    
+        if ($data['tes']->sekolah_id != $profil->sekolah_id) {
+            return redirect()->back();
+        }
+
+        return view('peserta-tes.boarding', $data);
+    }
+
     public function access($tes, Request $request)
     {
         $tes = Tes::find($tes);

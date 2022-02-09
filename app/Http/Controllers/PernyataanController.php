@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pernyataan;
 use App\Models\Peserta;
+use App\Models\Profil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,6 +17,10 @@ class PernyataanController extends Controller
 
     public function index()
     {
+        $data['profil'] = Profil::where('peserta_id', auth()->guard(session()->get('role'))->user()->id)->first();
+        if($data['profil'] == null){
+            return redirect()->back();
+        }
         $data['pernyataan'] = Pernyataan::where('peserta_id', auth()->guard(session()->get('role'))->user()->id)->first();
         return view('pernyataan.index' ,$data);
     }

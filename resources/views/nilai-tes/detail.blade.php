@@ -44,6 +44,7 @@
                                 <th>Waktu Mulai</th>
                                 <th>Waktu Selesai</th>
                                 <th>Nilai</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -72,11 +73,14 @@
                                         Belum Mengerjakan
                                     @endif
                                 </td>
+                                <td>{{$nilaiTes != null ? ($nilaiTes->status == 'Belum' ? 'Belum Ditentukan' : $nilaiTes->status) : '-' }}</td>
                                 <td class="text-center">
                                     <div class="d-inline d-flex">
                                         @if($nilaiTes)
                                             <a href="{{route('nilai_tes.detail_pengerjaan',[$tes->id,$nilaiTes->id])}}" class="btn btn-icon btn-round btn-primary btn-sm {{$nilaiTes->waktu_selesai == null ? 'd-none' : '' }}"><i class="fas fa-eye mt-2"></i></a>
-    
+                                            <button title="Ubah" class="btn btn-icon btn-round btn-warning btn-sm ml-2" data-toggle="modal" data-target="#editNilai" data-id="{{ $nilaiTes->id }}" data-status="{{$nilaiTes->status}}">
+                                                <i class="fa fa-pen-square"></i>
+                                            </button>
                                             <button class="btn btn-icon btn-round btn-sm btn-danger ml-1" data-toggle="modal" data-target="#confirmDelete" data-url="{{ route('nilai_tes.nilai_delete', $nilaiTes->id) }}" title="Hapus"><i class="fa fa-trash"></i></button>
                                         @endif
                                     </div>
@@ -90,6 +94,40 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="editNilai" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{ route('pendaftar.update_nilai_status') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="id">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Status Nilai</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="status">Status Nilai</label>
+                        <select name="status" id="status" class="custom-select" required>
+                            <option value="" disabled selected> Pilih Status </option>
+                            <option value="lulus">Lulus</option>
+                            <option value="remidi">Remidi</option>
+                            <option value="gugur">Gugur</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -122,6 +160,13 @@
         var url = $(e.relatedTarget).data('url');
 
         $(e.currentTarget).find('form').attr('action', url);
+    });
+    $('#editNilai').on('show.bs.modal', (e) => {
+        var id = $(e.relatedTarget).data('id');
+        var status = $(e.relatedTarget).data('status');
+
+        $('#editNilai').find('input[name="id"]').val(id);
+        $('#editNilai').find('select[name="status"]').val(status);
     });
 </script>
 @endpush

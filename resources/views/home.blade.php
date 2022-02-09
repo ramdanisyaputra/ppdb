@@ -92,7 +92,7 @@
                             $nilaiTes = App\Models\NilaiTes::where('peserta_id', auth()->guard(session()->get('role'))->user()->id)->first();
                         ?>
                         @if($nilaiTes != null )
-                        <h4>Data tes anda <span class="text-success">Sudah Lengkap</span></h4>
+                        <h4>Data tes anda <span class="text-success">Sudah Lengkap</span>. Silahkan cek menu Tes disamping untuk detail selengkapnya</h4>
                         @else
                         <h4>Data tes anda <span class="text-danger">Belum Lengkap</span>. Silahkan kerjakan melalui menu disamping</h4> 
                         @endif

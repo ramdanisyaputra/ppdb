@@ -56,10 +56,31 @@
                                             Lanjutkan
                                         </a>
                                     @elseif ($row->nilaiTes()->where('peserta_id', auth()->guard(session()->get('role'))->user()->id)->count() > 0)
+                                    <?php
+                                        $cek = $row->nilaiTes()->where('peserta_id', auth()->guard(session()->get('role'))->user()->id)->first();
+                                    ?>
+                                        @if($cek->status == 'belum')
                                         <button 
                                             class="btn btn-light btn-sm px-3 rounded-pill">
-                                            Selesai
+                                            Selesai, Tunggu Kabar Selanjutnya
                                         </button>
+                                        @elseif($cek->status == 'lulus')
+                                        <button 
+                                            class="btn btn-light btn-sm px-3 rounded-pill">
+                                            Selesai, Anda Lulus
+                                        </button>
+                                        @elseif($cek->status == 'remidi')
+                                        <a 
+                                            href="{{ route('peserta_tes.boarding2', $row->id) }}" 
+                                            class="btn btn-sm btn-warning px-3 rounded-pill shadow">
+                                            Anda Remidi, Silahkan Mengulang
+                                        </a>
+                                        @else
+                                        <button 
+                                            class="btn btn-light btn-sm px-3 rounded-pill">
+                                            Selesai, Maaf anda gugur
+                                        </button>
+                                        @endif
                                     @else
                                         <a 
                                             href="{{ route('peserta_tes.boarding', $row->id) }}" 

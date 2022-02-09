@@ -22,6 +22,7 @@ class CreateNilaiTesTable extends Migration
             $table->datetime('waktu_selesai')->nullable();
             $table->text('detail')->nullable();
             $table->foreignId('sekolah_id')->references('id')->on('sekolah')->onDelete('cascade');
+            $table->enum('status',['belum','lulus','remidi','gugur']);
             $table->timestamps();
         });
     }

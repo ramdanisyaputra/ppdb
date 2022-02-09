@@ -21,4 +21,9 @@ class Profil extends Model
         return $this->belongsTo(Sekolah::class);
     }
 
+    public function tahunAjaran()
+    {
+        return $this->belongsTo(TahunAjaran::class);
+    }
+
 }

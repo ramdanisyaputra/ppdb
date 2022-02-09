@@ -109,6 +109,11 @@
                         <td class="px-2">:</td>
                         <td>{{$profil->sekolah->nama}}</td>
                     </tr>
+                    <tr>
+                        <td>Tahun Ajaran</td>
+                        <td class="px-2">:</td>
+                        <td>{{$profil->tahunAjaran->nama}}</td>
+                    </tr>
                 </table>
             </div>
         </div>

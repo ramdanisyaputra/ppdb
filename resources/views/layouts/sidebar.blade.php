@@ -47,6 +47,12 @@
                         <p>Sekolah</p>
                     </a>
                 </li>
+                <li class="nav-item {{ request()->is('tahun-ajaran*') ? 'active' : '' }}">
+                    <a href="{{route('tahun_ajaran.index')}}">
+                        <i class="fas fa-microchip"></i>
+                        <p>Tahun Ajaran</p>
+                    </a>
+                </li>
                 <li class="nav-item {{ request()->is('panitia*') ? 'active submenu' : '' }}  {{ request()->is('admin*') ? 'active submenu' : '' }}">
                     <a data-toggle="collapse" href="#base">
                         <i class="fas fa-users"></i>

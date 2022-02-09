@@ -12,6 +12,7 @@ use App\Http\Controllers\PernyataanController;
 use App\Http\Controllers\PesertaTesController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SekolahController;
+use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\TesController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,12 @@ Route::prefix('sekolah')->name('sekolah.')->group(function () {
     Route::put('update', [SekolahController::class, 'update'])->name('update');
 });
 
+Route::prefix('tahun-ajaran')->name('tahun_ajaran.')->group(function () {
+    Route::get('', [TahunAjaranController::class, 'index'])->name('index');
+    Route::post('store', [TahunAjaranController::class, 'store'])->name('store');
+    Route::put('update', [TahunAjaranController::class, 'update'])->name('update');
+});
+
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('', [AdminController::class, 'index'])->name('index');
     Route::post('store', [AdminController::class, 'store'])->name('store');
@@ -73,6 +80,7 @@ Route::prefix('pendaftar')->name('pendaftar.')->group(function () {
     Route::post('store-dinas', [PendaftarController::class, 'storeDinas'])->name('store_dinas');
     Route::put('update-dinas', [PendaftarController::class, 'updateDinas'])->name('update_dinas');
     Route::put('update-lampiran-dinas', [PendaftarController::class, 'updateLampiranDinas'])->name('update_lampiran_dinas');
+    Route::put('update-nilai-status', [PendaftarController::class, 'updateNilaiStatus'])->name('update_nilai_status');
     Route::get('detail-pernyataan/{peserta_id}', [PendaftarController::class, 'detailPernyataan'])->name('detail_pernyataan');
 
 
@@ -121,6 +129,7 @@ Route::prefix('dinas')->name('dinas.')->group(function () {
 Route::prefix('peserta-tes')->name('peserta_tes.')->group(function() {
     Route::get('/', [PesertaTesController::class, 'index'])->name('index');
     Route::get('/{tes_id}', [PesertaTesController::class, 'boarding'])->name('boarding');
+    Route::get('boarding2/{tes_id}', [PesertaTesController::class, 'boarding2'])->name('boarding2');
     Route::post('/{tes_id}', [PesertaTesController::class, 'access'])->name('access');
     Route::get('/{tes_id}/sesi/{token}', [PesertaTesController::class, 'start'])->name('start');
     Route::post('/{tes_id}/sesi/{token}', [PesertaTesController::class, 'finish'])->name('finish');

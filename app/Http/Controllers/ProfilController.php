@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profil;
 use App\Models\Sekolah;
+use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 
 class ProfilController extends Controller
@@ -16,6 +17,7 @@ class ProfilController extends Controller
     public function index()
     {
         $data['sekolah'] = Sekolah::all();
+        $data['tahun_ajaran'] = TahunAjaran::all();
         $data['profil'] = Profil::where('peserta_id', auth()->guard(session()->get('role'))->user()->id)->first();
         return view('profil.index', $data);
     }
@@ -24,6 +26,7 @@ class ProfilController extends Controller
     {
         Profil::create([
             'peserta_id' => auth()->guard(session()->get('role'))->user()->id,
+            'tahun_ajaran_id' => $request->tahun_ajaran_id,
             'panggilan' => $request->panggilan,
             'nik' => $request->nik,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -46,6 +49,7 @@ class ProfilController extends Controller
     public function update(Request $request)
     {
         Profil::find($request->id)->update([
+            'tahun_ajaran_id' => $request->tahun_ajaran_id,
             'panggilan' => $request->panggilan,
             'nik' => $request->nik,
             'jenis_kelamin' => $request->jenis_kelamin,

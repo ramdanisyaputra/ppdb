@@ -109,6 +109,15 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="tahun_ajaran_id">Tahun Ajaran</label>
+                                <select name="tahun_ajaran_id" id="tahun_ajaran_id" class="custom-select" required>
+                                    <option value="" disabled selected>Pilih Tahun Ajaran</option>
+                                    @foreach($tahun_ajaran as $row)
+                                    <option value="{{$row->id}}" {{$profil != null ? ($profil->tahun_ajaran_id == $row->id ? 'selected' : '') : ''}}>{{$row->nama}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <center>
