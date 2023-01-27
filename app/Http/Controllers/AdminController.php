@@ -26,7 +26,7 @@ class AdminController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        return redirect()->back()->with('success','Data Berhasil Ditambahkan');
+        return redirect()->route('admin.index')->with('success','Data Berhasil Ditambahkan');
     }
 
     public function update(Request $request)
