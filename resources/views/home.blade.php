@@ -112,7 +112,7 @@
                         <?php 
                             $pernyataan = App\Models\Pernyataan::where('peserta_id', auth()->guard(session()->get('role'))->user()->id)->first();
                         ?>
-                        @if($nilaiTes != null )
+                        @if($pernyataan != null )
                         <h4>Selamat, Surat pernyataan anda <span class="text-success">Sudah Lengkap</span></h4>
                         @else
                         <h4>Surat pernyataan anda <span class="text-danger">Belum Lengkap</span>. Silahkan tanda tangan melalui menu disamping</h4> 
