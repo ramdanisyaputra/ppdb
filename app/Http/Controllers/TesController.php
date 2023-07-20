@@ -54,7 +54,7 @@ class TesController extends Controller
             'judul' => $request->judul,
             'durasi' => $request->durasi,
             'panitia_id' => null,
-            'status' => 0,
+            'status' => '0',
             'status_acak' => $request->status_acak
         ]);
 
